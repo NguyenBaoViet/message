@@ -7,5 +7,5 @@
  */
 
  function local_message_before_footer() {
-    \core\notification::add('a test message 12222234 ', \core\output\notification::NOTIFY_SUCCESS);
+   //\core\notification::add('a test message 12222234 ', \core\output\notification::NOTIFY_SUCCESS);
  }
