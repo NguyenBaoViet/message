@@ -43,8 +43,14 @@ class create extends moodleform {
         //Người dùng nhận thông báo
         $userChoices = $this->_customdata['user_list'];
         $mform->addElement('select', 'userID', 'User', $userChoices);
-        $mform->setDefault('userID', 2);
-        
+        $mform->setDefault('userID', -1);
+
+        //thời gian bắt đầu thông báo
+        $mform->addElement('date_time_selector', 'timebegin','Thông báo bắt đầu từ ngày');
+
+        //thời hạn kết thúc thông báo
+        $mform->addElement('date_time_selector', 'timestop','Thông báo tồn tại đến ngày');
+
         $this->add_action_buttons();
     }
     //Custom validation should be added here

@@ -20,15 +20,26 @@ $id = isset($_GET['id']) ? $_GET['id'] : null;
 
 //get list user
 $users = $DB->get_records('user');
+
+$arr['-1'] = "Tất cả người dùng";
+
 foreach ($users as $user) {
     $arr[$user->id] = $user->firstname.' '.$user->lastname;
 }
+
+
 
 //get message
 $message = $DB->get_record('local_message',['id' => $id]);
 
 // display our form
-$mform  = new edit(null, array('user_list' => $arr, 'messagetext' => $message->message_text,'messagetype' => $message->message_type, 'userID' => $message->user_recv, 'id' => $id));
+$mform  = new edit(null, array('user_list' => $arr, 
+                                'messagetext' => $message->message_text,
+                                'messagetype' => $message->message_type, 
+                                'userID' => $message->user_recv, 
+                                'id' => $id,
+                                'timebegin' => $message->time_begin,
+                                'timestop' => $message->time_stop));
 
 //set defalt data
 
@@ -44,6 +55,8 @@ if ($mform->is_cancelled()) {
     $dataUpdate->message_text = $fromform->messagetext;
     $dataUpdate->message_type = $fromform->messagetype;
     $dataUpdate->user_recv = $fromform->userID;
+    $dataUpdate->time_begin = $fromform->timebegin;
+    $dataUpdate->time_stop = $fromform->timestop;
 
     $DB->update_record('local_message', $dataUpdate);
 

@@ -49,6 +49,13 @@ class edit extends moodleform {
         $mform->addElement('select', 'userID', 'User', $userChoices);
         $mform->setDefault('userID', $this->_customdata['userID']);
 
+        //thời gian bắt đầu thông báo
+        $mform->addElement('date_time_selector', 'timebegin','Thông báo bắt đầu từ ngày');
+        $mform->setDefault('timebegin', $this->_customdata['timebegin']);
+
+        //thời hạn kết thúc thông báo
+        $mform->addElement('date_time_selector', 'timestop','Thông báo tồn tại đến ngày');
+        $mform->setDefault('timestop', $this->_customdata['timestop']);
         
         $this->add_action_buttons();
     }

@@ -18,12 +18,15 @@ $PAGE->set_title('Create message');
 //get list user
 $users = $DB->get_records('user');
 
+$arr['-1'] = "Tất cả người dùng";
+
 foreach ($users as $user) {
     $arr[$user->id] = $user->firstname.' '.$user->lastname;
 }
 
 // display our form
-$mform  = new create(null, array('user_list' => $arr));
+$mform  = new create(null, array('user_list' => $arr,'timestop' => 1639044780));
+
 
 //Form processing and displaying is done here
 if ($mform->is_cancelled()) {
@@ -36,6 +39,8 @@ if ($mform->is_cancelled()) {
     $dataInsert->message_text = $fromform->messagetext;
     $dataInsert->message_type = $fromform->messagetype;
     $dataInsert->user_recv = $fromform->userID;
+    $dataInsert->time_begin = $fromform->timebegin;
+    $dataInsert->time_stop = $fromform->timestop;
 
     $DB->insert_record('local_message', $dataInsert);
 

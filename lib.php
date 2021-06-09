@@ -13,14 +13,21 @@ function local_message_before_footer() {
 
   $messages = $DB->get_records('local_message');
 
+
   foreach($messages as $message) {
     if ($message->message_type === 'success') $type = \core\output\notification::NOTIFY_SUCCESS;
     if ($message->message_type === 'warning') $type = \core\output\notification::NOTIFY_WARNING;
     if ($message->message_type === 'error') $type = \core\output\notification::NOTIFY_ERROR;
     if ($message->message_type === 'info') $type = \core\output\notification::NOTIFY_INFO;
 
-    if ($message->user_recv === $USER->id) {
-      \core\notification::add($message->message_text, $type);
+    if ($message->time_begin <= time() && $message->time_stop >= time()) {
+      if ($message->user_recv == -1) {
+        \core\notification::add($message->message_text, $type);
+      } else {
+        if ($message->user_recv == $USER->id) {
+          \core\notification::add($message->message_text, $type);
+        }
+      }
     }
   }
 }

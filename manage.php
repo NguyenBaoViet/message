@@ -24,7 +24,8 @@ $templatecontext = (object) [
     'messages' => array_values($messages),
     'editurl' => new moodle_url('/local/message/edit.php'),
     'deleteurl' => new moodle_url('/local/message/delete.php'),
-    'createurl' => new moodle_url('/local/message/create.php')
+    'createurl' => new moodle_url('/local/message/create.php'),
+    'header' => 'List of notfications'
 ];
 
 echo $OUTPUT->render_from_template('local_message/manage',$templatecontext);
