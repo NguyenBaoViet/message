@@ -19,36 +19,14 @@ $arrsearch = array('success','warning','error','info');
 $arrReplace = array('Thành công','Cảnh báo','Lỗi','Thông tin');
 
 echo $OUTPUT->header();
-?>
-<h1>List of notfication</h1>
 
+$templatecontext = (object) [
+    'messages' => array_values($messages),
+    'editurl' => new moodle_url('/local/message/edit.php'),
+    'deleteurl' => new moodle_url('/local/message/delete.php'),
+    'createurl' => new moodle_url('/local/message/create.php')
+];
 
+echo $OUTPUT->render_from_template('local_message/manage',$templatecontext);
 
-<table style="width:100%" class="table">
-    <tr>
-        <th scope="col">#</th>
-        <th scope="col">Nội dung thông báo</th>
-        <th scope="col">Loại thông báo</th>
-        <th scope="col">Tác vụ</th>
-    </tr>
-<?php
-foreach ($messages as $message) {
-    echo '
-    <tr>
-        <td scope="row">'.$message->id.'</td>
-        <td>'.$message->message_text.'</td>
-        <td>'.str_replace($arrsearch,$arrReplace,$message->message_type).'</td>
-        <td>
-            <input type="button" class="btn btn-danger" value="Delete" onclick="location.href=\''. new moodle_url('/local/message/delete.php',['id' => $message->id]).'\'">
-        </td>
-    </tr>';
-}
-echo    '</table>
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <button type="button" class="btn btn-primary" onclick="location.href=\''. new moodle_url('/local/message/create.php').'\'">Create</button>
-                </div>
-            </div>
-        </div>';
 echo $OUTPUT->footer();

@@ -13,7 +13,7 @@ global $DB;
 
 $PAGE->set_url(new moodle_url('/local/message/create.php'));
 $PAGE->set_context(\context_system::instance());
-$PAGE->set_title('Edit message');
+$PAGE->set_title('Create message');
 
 //get list user
 $users = $DB->get_records('user');
@@ -35,7 +35,7 @@ if ($mform->is_cancelled()) {
     $dataInsert = new stdClass();
     $dataInsert->message_text = $fromform->messagetext;
     $dataInsert->message_type = $fromform->messagetype;
-    $dataInsert->asdfid = $fromform->userID;
+    $dataInsert->user_recv = $fromform->userID;
 
     $DB->insert_record('local_message', $dataInsert);
 
